@@ -1,4 +1,4 @@
 # JT-Reader
 Jupiter Tessellation Reader
 
-This repositry will contain versions of the reader written in C++ and C#.
+This repositry contains partial implementations of the reader written in C++ and C#.
