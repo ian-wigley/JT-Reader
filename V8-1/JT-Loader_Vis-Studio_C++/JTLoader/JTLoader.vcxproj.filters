@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Codecs">
+      <UniqueIdentifier>{a33f172e-cf99-40ab-9819-ae13823ab995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Nodes">
+      <UniqueIdentifier>{c3b36f80-9ae8-4bad-a39b-24c14cdca267}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BitBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Int32CDP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JT_viewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyProxyMetaData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TriStripSetShapeLODElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArithmeticCodec.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="ArithmeticProbabilityRange.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="BitLengthCodec.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="BitReader.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="CntxEntry.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="CodecDriver.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="DeeringNormalCodec.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="DeeringNormalLookupTable.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="Int32ProbabilityContexts.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="Int32ProbCtxtTable.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="ProbabilityContext.cpp">
+      <Filter>Codecs</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseJTNode.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupJTNode.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalSceneGraphNode.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataNode.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="PartitionNodeElement.cpp">
+      <Filter>Nodes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Int32CDP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JTLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyProxyMetaData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TriStripSetShapeLODElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArithmeticCodec.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="ArithmeticProbabilityRange.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="BitBuffer.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="BitLengthCodec.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="BitReader.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="CntxEntry.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="CodecDriver.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="DeeringNormalCodec.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="DeeringNormalLookupTable.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="Int32ProbabilityContexts.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="Int32ProbCtxtTable.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="ProbabilityContext.h">
+      <Filter>Codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseJTNode.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupJTNode.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalSceneGraphNode.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaDataNode.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="PartitionNodeElement.h">
+      <Filter>Nodes</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
