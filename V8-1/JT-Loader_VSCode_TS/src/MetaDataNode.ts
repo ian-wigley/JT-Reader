@@ -1,4 +1,5 @@
-﻿export class MetaDataNode extends GroupJTNode {
+﻿import { GroupJTNode } from "./GroupJTNode.js";
+export class MetaDataNode extends GroupJTNode {
 
     protected elementLength: number;
     compare: string;
