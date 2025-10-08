@@ -1,21 +1,21 @@
-<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JT Reader</title>
-    <link rel="stylesheet" href="app.css" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JT-Reader (Jupiter Tessellation Reader)</title>
+    <link rel="stylesheet" href="./css/app.css" type="text/css" />
 </head>
 
 <body>
-
+    <div id="content"></div>
     <script type="module">
-        import { Form1 } from "./out/Form.js"
-        let app = new Form1();
-        app.LoadJT();
+        import { JTReader } from "./out/Main.js";
+        let el = document.getElementById('content');
+        let jtReader = new JTReader();
+        jtReader.LoadJT("H-ADAPTOR,4 BOLT STRAIGHT.jt");
     </script>
-
 </body>
 
 </html>
