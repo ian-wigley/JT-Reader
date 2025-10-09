@@ -1,4 +1,4 @@
-﻿import { UniformQuantizerData } from "./UniformQuantizerData";
+﻿﻿import { UniformQuantizerData } from "./UniformQuantizerData";
 
 export class UniformQuantizerCodec {
     _inputVal: number = 0;
