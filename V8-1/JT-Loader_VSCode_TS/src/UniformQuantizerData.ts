@@ -1,4 +1,4 @@
-﻿export class UniformQuantizerData {
+﻿﻿export class UniformQuantizerData {
     _min: number;
     _max: number;
     _numberOfBits: number;
