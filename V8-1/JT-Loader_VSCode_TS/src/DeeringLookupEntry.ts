@@ -1,4 +1,4 @@
-﻿export class DeeringLookupEntry {
+﻿﻿export class DeeringLookupEntry {
 
     cosTheta: number;
     sinTheta: number;
