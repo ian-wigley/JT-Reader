@@ -63,11 +63,11 @@ export class JTObjectTypeIdentifiers {
         this.identifiers.set(new Guid(0xffffffff, 0xffff, 0xffff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff), "EOF");
     }
 
-    //     public static GetType(guid: Guid): string {
-    //         var value: string = string.Empty;
-    //         if (JTObjectTypeIdentifiers.identifiers.ContainsKey(guid)) {
-    //             JTObjectTypeIdentifiers.identifiers.TryGetValue(guid, value);
-    //         }
-    //         return value;
-    //     }
+        public static GetType(guid: Guid): string {
+            var value: string = "";
+            // if (JTObjectTypeIdentifiers.identifiers.ContainsKey(guid)) {
+            //     JTObjectTypeIdentifiers.identifiers.TryGetValue(guid, value);
+            // }
+            return value;
+        }
 }
