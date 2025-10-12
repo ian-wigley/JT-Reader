@@ -1,5 +1,4 @@
 ﻿export class DeeringCode {
-
     m_sextant: number = 0;
     m_octant: number = 0;
     m_theta: number = 0;
