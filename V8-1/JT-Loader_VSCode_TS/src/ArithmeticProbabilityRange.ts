@@ -1,4 +1,5 @@
 ﻿export class ArithmeticProbabilityRange {
+
     private m_low: number;
     private m_high: number;
     private m_scale: number;
@@ -20,5 +21,4 @@
     public getScale(): number {
         return this.m_scale;
     }
-
 }
