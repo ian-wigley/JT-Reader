@@ -9,6 +9,7 @@
 //     private m_tableEntries: List<Int32ProbCtxtEntry> = new List<Int32ProbCtxtEntry>();
 //     private _minValue: number;
 //     private m_probContext: Int32ProbabilityContexts;
+
 //     constructor(richTextBox: List<string>, _data: number[], filePosCount: number, firstTable: boolean, bitReader: BitReader, probCtxt: Int32ProbabilityContexts) {
 //         this.m_richTextBox = richTextBox;
 //         this.m_filePosCount = filePosCount;
@@ -36,6 +37,7 @@
 //             this.m_richTextBox.Add("Min Value = " + this._minValue.ToString());
 //             this.m_filePosCount = bitReader.getFilePos();
 //         }
+
 //         for (var i: number = 0; i < _probabilityContextTableEntryCount; i++) {
 //             var _symbol: number = <number>bitReader.readU32(<number>_numberSymbolBit, this.m_filePosCount) - 2;
 //             this.m_richTextBox.Add("Symbol = " + _symbol.ToString());
@@ -60,6 +62,7 @@
 //             m_cumCount += <number>_occurrenceCount;
 //         }
 //     }
+
 //     public GetTotalCount(): number {
 //         var m_totalCount: number = 0;
 //         this.m_tableEntries.forEach(function (m_entry) {
@@ -67,6 +70,7 @@
 //         });
 //         return m_totalCount;
 //     }
+
 //     public LookupEntryByCumCount(count: number): Int32ProbCtxtEntry {
 //         var sum: number = this.m_tableEntries[0].getOccCount();
 //         var idx: number = 0;
@@ -79,6 +83,7 @@
 //         }
 //         return this.m_tableEntries[idx];
 //     }
+
 //     public GetFilePosition(): number {
 //         return this.m_filePosCount;
 //     }

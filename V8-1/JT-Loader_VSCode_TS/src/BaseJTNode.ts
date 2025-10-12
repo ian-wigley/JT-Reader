@@ -1,4 +1,6 @@
-﻿﻿export class BaseJTNode {
+import { DataTypes } from "./DataTypes";
+
+export class BaseJTNode {
 
     protected _uncompressed: number[];
     protected _fileVersion: number = 0;
