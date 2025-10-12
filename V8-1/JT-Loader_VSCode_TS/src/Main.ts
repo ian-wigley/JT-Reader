@@ -149,7 +149,9 @@ export class JTReader {
         for (let i = 0; i < 4; i++) {
             fileBytes[i] = this.fileBytes[this.count++];
         }
-        return fileBytes[0] | (fileBytes[1] << 8) | (fileBytes[2] << 16) | (fileBytes[3] << 24);
+        let res = fileBytes.reverse().reduce((acc, byte, index) => acc | (byte << (index * 8)), 0);
+        return res;
+        // return fileBytes[0] | (fileBytes[1] << 8) | (fileBytes[2] << 16) | (fileBytes[3] << 24);
         // return BitConverter.ToInt32(fileBytes, 0);
     }
 
