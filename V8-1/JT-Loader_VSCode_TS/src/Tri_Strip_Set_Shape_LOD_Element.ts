@@ -1,4 +1,4 @@
-﻿import { UniformQuantizerCodec } from "./UniformQuantizerCodec";
+﻿import { UniformQuantizerCodec } from "./UniformQuantizerCodec.js";
 
 export class Tri_Strip_Set_Shape_LOD_Element {
     _filePosCount: number;
