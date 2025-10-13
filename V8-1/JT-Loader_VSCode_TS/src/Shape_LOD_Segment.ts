@@ -1,9 +1,9 @@
-﻿import { Buffer } from "./BitBuffer";
-import { DataTypes } from "./DataTypes";
-import { Guid } from "./GUID";
-import { Int32CDP } from "./Int32CDP";
-import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers";
-import { Tri_Strip_Set_Shape_LOD_Element } from "./Tri_Strip_Set_Shape_LOD_Element";
+﻿import { Buffer } from "./BitBuffer.js";
+import { DataTypes } from "./DataTypes.js";
+import { Guid } from "./GUID.js";
+import { Int32CDP } from "./Int32CDP.js";
+import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers.js";
+import { Tri_Strip_Set_Shape_LOD_Element } from "./Tri_Strip_Set_Shape_LOD_Element.js";
 
 export class Shape_LOD_Segment {
     _filePosCount: number;
