@@ -1,4 +1,4 @@
-import { BaseJTNode } from "./BaseJTNode";
+import { BaseJTNode } from "./BaseJTNode.js";
 
 export class MetaDataNode  extends BaseJTNode {
 
