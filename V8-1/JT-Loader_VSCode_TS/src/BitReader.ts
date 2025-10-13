@@ -1,4 +1,4 @@
-﻿import { BitBuffer, Buffer } from "./BitBuffer";
+﻿import { BitBuffer, Buffer } from "./BitBuffer.js";
 
 export class BitReader {
     bitBuf: BitBuffer;
