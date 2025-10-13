@@ -1,14 +1,14 @@
-﻿import { BaseJTNode } from "./BaseJTNode";
-import { Buffer } from "./BitBuffer";
-import { DataTypes } from "./DataTypes";
-import { GeometricTransformAttributeElement } from "./GeometricTransformAttributeElement";
-import { GroupJTNode } from "./GroupJTNode";
-import { Guid } from "./GUID";
-import { InstanceNodeElement } from "./InstanceNodeElement";
-import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers";
-import { MetaDataNode } from "./MetaDataNode";
-import { Partition_Node_Element } from "./Partition_Node_Element";
-import { PropertyProxyMetaData } from "./PropertyProxyMetaData";
+﻿import { BaseJTNode } from "./BaseJTNode.js";
+import { Buffer } from "./BitBuffer.js";
+import { DataTypes } from "./DataTypes.js";
+import { GeometricTransformAttributeElement } from "./GeometricTransformAttributeElement.js";
+import { GroupJTNode } from "./GroupJTNode.js";
+import { Guid } from "./GUID.js";
+import { InstanceNodeElement } from "./InstanceNodeElement.js";
+import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers.js";
+import { MetaDataNode } from "./MetaDataNode.js";
+import { Partition_Node_Element } from "./Partition_Node_Element.js";
+import { PropertyProxyMetaData } from "./PropertyProxyMetaData.js";
 
 export class LogicalSceneGraphNode extends GroupJTNode {
     elementLength: Int32;
