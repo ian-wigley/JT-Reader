@@ -1,6 +1,6 @@
-﻿import { Buffer } from "./BitBuffer";
-import { DataTypes } from "./DataTypes";
-import { GroupJTNode } from "./GroupJTNode";
+﻿import { Buffer } from "./BitBuffer.js";
+import { DataTypes } from "./DataTypes.js";
+import { GroupJTNode } from "./GroupJTNode.js";
 
 export class GeometricTransformAttributeElement extends GroupJTNode {
 
