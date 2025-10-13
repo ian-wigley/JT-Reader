@@ -1,4 +1,4 @@
-export class Int32ProbabilityContexts {
+﻿export class Int32ProbabilityContexts {
     static _data: number[];
     static _filePosCount: number;
     static _oOOBValues: number[];
@@ -17,7 +17,7 @@ export class Int32ProbabilityContexts {
     private readInt32ProbabilityContexts(): void {
     }
 
-public UpDateFilePos(): number {
+    public UpDateFilePos(): number {
         return Int32ProbabilityContexts._filePosCount;
     }
 
