@@ -1,6 +1,6 @@
-﻿import { Buffer } from "./BitBuffer";
-import { BitLengthCodec } from "./BitLengthCodec";
-import { DataTypes } from "./DataTypes";
+﻿import { Buffer } from "./BitBuffer.js";
+import { BitLengthCodec } from "./BitLengthCodec.js";
+import { DataTypes } from "./DataTypes.js";
 
 export class Int32CDP2 {
     static _filePosCount: number;
