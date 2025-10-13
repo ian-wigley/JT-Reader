@@ -1,8 +1,8 @@
-﻿import { ArithmeticCodec } from "./ArithmeticCodec";
-import { Buffer } from "./BitBuffer";
-import { BitLengthCodec } from "./BitLengthCodec";
-import { DataTypes } from "./DataTypes";
-import { Int32ProbabilityContexts } from "./Int32ProbabilityContexts";
+﻿import { ArithmeticCodec } from "./ArithmeticCodec.js";
+import { Buffer } from "./BitBuffer.js";
+import { BitLengthCodec } from "./BitLengthCodec.js";
+import { DataTypes } from "./DataTypes.js";
+import { Int32ProbabilityContexts } from "./Int32ProbabilityContexts.js";
 
 export class Int32CDP {
     static _data: number[];
