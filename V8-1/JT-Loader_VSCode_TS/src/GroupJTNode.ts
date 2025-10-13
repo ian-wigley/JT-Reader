@@ -1,6 +1,6 @@
-﻿import { BaseJTNode } from "./BaseJTNode";
-import { Buffer } from "./BitBuffer";
-import { DataTypes } from "./DataTypes";
+﻿import { BaseJTNode } from "./BaseJTNode.js";
+import { Buffer } from "./BitBuffer.js";
+import { DataTypes } from "./DataTypes.js";
 
 export class GroupJTNode extends BaseJTNode {
 
