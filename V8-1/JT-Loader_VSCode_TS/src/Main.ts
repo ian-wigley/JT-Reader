@@ -1,7 +1,8 @@
 ﻿import { Guid } from "./GUID.js";
 import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers.js";
-
-
+import { LogicalSceneGraphNode } from "./LogicalSceneGraphNode.js";
+import { MetaDataNode } from "./MetaDataNode.js";
+import { Shape_LOD_Segment } from "./Shape_LOD_Segment.js";
 
 export class JTReader {
     fileVersion: number;
@@ -27,24 +28,24 @@ export class JTReader {
     segmentType: string[];
     segment: number[];
     element: number[];
-    // test: number[];
-    // decompressedBytes: List<Byte[]> = new List<number[]>();
-    // notZLibBytes: List<Byte[]> = new List<number[]>();
-    // m_lodSegment: List<Shape_LOD_Segment> = new List<Shape_LOD_Segment>();
-    // m_textBox: List<string> = new List<string>();
-    // dataContents: string = string.Empty;
-    // metaNode: MetaDataNode;
-    // lSG: LogicalSceneGraphNode;
+    test: number[];
+    decompressedBytes: List<Byte[]>;
+    notZLibBytes: any; //List<Byte[]>;
+    m_lodSegment: List<Shape_LOD_Segment>;
+    m_textBox: List<string>;
+    dataContents: string;
+    metaNode: MetaDataNode;
+    lSG: LogicalSceneGraphNode;
     // xtB_Rep: XTB_RepNode;
-    // shapeLODSegment: Shape_LOD_Segment;
+    shapeLODSegment: Shape_LOD_Segment;
 
     fileBytes: Uint8Array;
     loaded = false;
 
-
     constructor() {
-        let a = 1;
-        console.log(a);
+        // let a = 1;
+        // console.log(a);
+        this.notZLibBytes = [];
     }
 
     public LoadJT(fileName: string): void {
@@ -68,14 +69,9 @@ export class JTReader {
         xhr.send();
     }
 
-
     public ParseJT(fileName: string): void {
         JTObjectTypeIdentifiers.PopulateList();
-        let a = 1;
-        let version: string = this.ReadChars(80);
-        //     var conversion: string = new string(this.version);
-        //     var versionSplit: string[] = conversion.Split(' ');
-        //     number.TryParse(versionSplit[1], this.fileVersion);
+        let version: string = this.ReadChars(79);
         if (!version.includes("Version 8.1 JT  DM 7.3.7.3")) { return; }
         this.byteOrder = this.ReadChar();
         if (this.byteOrder != 0) {
@@ -86,7 +82,7 @@ export class JTReader {
             this.reservedField = this.GetInt32();
             this.tocOffset = this.GetInt32();
             this.lsgSegmentID = this.GetGuid();
-            //         b.BaseStream.Position = this.tocOffset;
+            //b.BaseStream.Position = this.tocOffset;
             this.count = this.tocOffset;
             this.entryCount = this.GetInt32();
             this.segmentID = new Array(this.entryCount);
@@ -105,28 +101,29 @@ export class JTReader {
                 this.segmentID[i] = this.GetGuid();
                 this.segmentOffset[i] = this.GetInt32();
                 this.segmentLength[i] = this.GetInt32();
-                // this.segmentAttributes[i] = this.GetUInt32(i);
+                this.segmentAttributes[i] = this.GetUInt32(i);
             }
-            //         for (var i: number = 0; i < this.entryCount; i++) {
-            //             b.BaseStream.Position = this.segmentOffset[i];
-            //             this.SegmentID = this.getGuid(b);
-            //             this.SegmentType = this.getInt32(b);
-            //             this.segmentType[i] = this.getSegmentType(this.SegmentType, i);
-            //             this.SegmentLength[i] = this.getInt32(b);
-            //             this.segmentFilePos[i] = <Int32>b.BaseStream.Position;
-            //             var basePos: number = <number>b.BaseStream.Position;
-            //             this.readBaseLSGData(i, basePos, b);
-            //         }
-            //     }
-            console.log("Done!");
+
+            for (var i: number = 0; i < this.entryCount; i++) {
+                // b.BaseStream.Position = this.segmentOffset[i];
+                this.count = this.segmentOffset[i];
+                this.SegmentID = this.GetGuid();
+                this.SegmentType = this.GetInt32();
+                this.segmentType[i] = this.GetSegmentType(this.SegmentType, i);
+                this.SegmentLength[i] = this.GetInt32();
+                // this.segmentFilePos[i] = <Int32>b.BaseStream.Position;
+                this.segmentFilePos[i] = this.count;
+                //var basePos: number = <number>b.BaseStream.Position;//this.count;
+                var basePos: number = this.count;
+                // this.readBaseLSGData(i, basePos, b);
+                this.readBaseLSGData(i, basePos, this.count);
+            }
         }
+        console.log("Done!");
     }
 
     private ReadChar() {
         return this.fileBytes[this.count++];
-        // let char = String.fromCharCode(this.fileBytes[this.count]);
-        // return char;
-        // // return String.fromCharCode(this.fileBytes[this.count++]);
     }
 
     private ReadByte() {
@@ -149,28 +146,33 @@ export class JTReader {
         for (let i = 0; i < 4; i++) {
             fileBytes[i] = this.fileBytes[this.count++];
         }
-        let res = fileBytes.reverse().reduce((acc, byte, index) => acc | (byte << (index * 8)), 0);
-        return res;
-        // return fileBytes[0] | (fileBytes[1] << 8) | (fileBytes[2] << 16) | (fileBytes[3] << 24);
-        // return BitConverter.ToInt32(fileBytes, 0);
+        if (this.byteOrder == 0) {
+            return fileBytes[0] | (fileBytes[1] << 8) | (fileBytes[2] << 16) | (fileBytes[3] << 24);
+        }
+        else {
+            return (fileBytes[0] << 24) | (fileBytes[1] << 16) | (fileBytes[2] << 8) | (fileBytes[3]);
+        }
     }
 
-    private GetUInt32(): UInt32 {
+    private GetUInt32(i: number): UInt32 {
         var fileBytes: number[] = new Array(4);
         for (let i = 0; i < 4; i++) {
             fileBytes[i] = this.fileBytes[this.count++];
         }
         if (fileBytes[3] < 6) {
-            //this.zlibApplied[i] = true;
+            this.zlibApplied[i] = true;
         }
-        return fileBytes[0] | (fileBytes[1] << 8) | (fileBytes[2] << 16) | (fileBytes[3] << 24);
-        // return BitConverter.ToUInt32(fileBytes, 0);
+        if (this.byteOrder != 0) {
+            return fileBytes[0] | (fileBytes[1] << 8) | (fileBytes[2] << 16) | (fileBytes[3] << 24);
+        }
+        else {
+            return (fileBytes[0] << 24) | (fileBytes[1] << 16) | (fileBytes[2] << 8) | (fileBytes[3]);
+        }
     }
 
     GetGuid(): Guid {
         var guidBytes: number[] = new Array(16);
         for (var i: number = 0; i < 16; i++) {
-            let t = this.ReadByte();
             guidBytes[i] = this.ReadByte();
         }
         return new Guid(guidBytes[0], guidBytes[1], guidBytes[2], guidBytes[3], guidBytes[4], guidBytes[5], guidBytes[6], guidBytes[7], guidBytes[8], guidBytes[9], guidBytes[10]);
@@ -178,127 +180,119 @@ export class JTReader {
 
     private readBaseLSGData(i: number, basePos: number, b): void {
         // b.BaseStream.Position = basePos;
-        // if (this.zlibApplied[i] == true) {
-        //     this.compressionFlag[i] = this.getInt32(b);
-        //     this.compressedDataLength[i] = this.getInt32(b);
-        //     this.compressionAlgorithmn[i] = b.ReadByte();
-        //     var testLength: number = this.compressedDataLength[i] - 4;
-        //     this.segment = new Array(testLength);
-        //     for (var j: number = 0; j < testLength; j++) {
-        //         this.segment[j] = b.ReadByte();
-        //     }
-        //     this.test = new Array(10000);
-        //     this.decompressFile(this.segment, this.test);
-        //     this.decompressedBytes.Add(this.test);
-        // }
-        // else {
-        //     this.element = new Array(this.SegmentLength[i]);
-        //     for (var j: number = 0; j < this.SegmentLength[i] - 24; j++) {
-        //         this.element[j] = b.ReadByte();
-        //     }
-        //     this.notZLibBytes.Add(this.element);
-        // }
-        // if (this.segmentType[i] == "Logical Scene Graph - ZLib Applied") {
+        if (this.zlibApplied[i] == true) {
+            this.compressionFlag[i] = this.GetInt32();
+            this.compressedDataLength[i] = this.GetInt32();
+            this.compressionAlgorithmn[i] = this.ReadByte();
+            var testLength: number = this.compressedDataLength[i] - 4;
+            this.segment = new Array(testLength);
+            for (var j: number = 0; j < testLength; j++) {
+                this.segment[j] = this.ReadByte();
+            }
+            let test = new Array(10000);
+            this.DecompressFile(this.segment, test);
+            this.decompressedBytes.push(test);
+        }
+        else {
+            this.element = new Array(this.SegmentLength[i]);
+            for (var j: number = 0; j < this.SegmentLength[i] - 24; j++) {
+                this.element[j] = this.ReadByte();
+            }
+            this.notZLibBytes.push(this.element);
+        }
 
-        // }
-        // if (this.segmentType[i] == "Meta Data - ZLib Applied") {
-        //     this.metaNode = new MetaDataNode(this.fileVersion);
-        // }
-        // if (this.segmentType[i] == "XT B-Rep - ZLib Applied") {
+        if (this.segmentType[i] == "Logical Scene Graph - ZLib Applied") {
+        }
 
-        // }
-        // if (this.segmentType[i] == "Shape LOD0") {
-        //     this.shapeLODSegment = new Shape_LOD_Segment(this.fileVersion, this.element);
-        //     this.m_lodSegment.Add(this.shapeLODSegment);
-        // }
-        // if (this.segmentType[i] == "Shape LOD1") {
+        if (this.segmentType[i] == "Meta Data - ZLib Applied") {
+            let metaNode = new MetaDataNode(this.fileVersion);
+        }
 
-        // }
-        // if (this.segmentType[i] == "Shape LOD2") {
+        if (this.segmentType[i] == "XT B-Rep - ZLib Applied") {
+        }
 
-        // }
+        if (this.segmentType[i] == "Shape LOD0") {
+            let shapeLODSegment = new Shape_LOD_Segment(this.fileVersion, this.element);
+            this.m_lodSegment.push(shapeLODSegment);
+        }
+
+        if (this.segmentType[i] == "Shape LOD1") {
+        }
+
+        if (this.segmentType[i] == "Shape LOD2") {
+        }
     }
 
-    private getSegmentType(type: number, count: number): string {
-        // if (type < 6 || type > 16) {
-        //     this.zlibApplied[count] = true;
-        // }
-        // else {
-        //     this.zlibApplied[count] = false;
-        // }
-        // switch (type) {
-        //     case 1:
-        //         this.dataContents = "Logical Scene Graph - ZLib Applied";
-        //         break;
-        //     case 2:
-        //         this.dataContents = "JT B-Rep - ZLib Applied";
-        //         break;
-        //     case 3:
-        //         this.dataContents = "PMI Data - ZLib Applied";
-        //         break;
-        //     case 4:
-        //         this.dataContents = "Meta Data - ZLib Applied";
-        //         break;
-        //     case 6:
-        //         this.dataContents = "Shape";
-        //         break;
-        //     case 7:
-        //         this.dataContents = "Shape LOD0";
-        //         break;
-        //     case 8:
-        //         this.dataContents = "Shape LOD1";
-        //         break;
-        //     case 9:
-        //         this.dataContents = "Shape LOD2";
-        //         break;
-        //     case 10:
-        //         this.dataContents = "Shape LOD3";
-        //         break;
-        //     case 11:
-        //         this.dataContents = "Shape LOD4";
-        //         break;
-        //     case 12:
-        //         this.dataContents = "Shape LOD5";
-        //         break;
-        //     case 13:
-        //         this.dataContents = "Shape LOD6";
-        //         break;
-        //     case 14:
-        //         this.dataContents = "Shape LOD7";
-        //         break;
-        //     case 15:
-        //         this.dataContents = "Shape LOD8";
-        //         break;
-        //     case 16:
-        //         this.dataContents = "Shape LOD9";
-        //         break;
-        //     case 17:
-        //         this.dataContents = "XT B-Rep - ZLib Applied";
-        //         break;
-        //     case 18:
-        //         this.dataContents = "Wireframe Representation - ZLib Applied";
-        //         break;
-        //     case 20:
-        //         this.dataContents = "ULP - ZLib Applied";
-        //         break;
-        //     case 24:
-        //         this.dataContents = "LWPA - ZLib Applied";
-        //         break;
-        // }
-        // return this.dataContents;
-        return "";
+    private GetSegmentType(type: number, count: number): string {
+        if (type < 6 || type > 16) {
+            this.zlibApplied[count] = true;
+        }
+        else {
+            this.zlibApplied[count] = false;
+        }
+        switch (type) {
+            case 1:
+                this.dataContents = "Logical Scene Graph - ZLib Applied";
+                break;
+            case 2:
+                this.dataContents = "JT B-Rep - ZLib Applied";
+                break;
+            case 3:
+                this.dataContents = "PMI Data - ZLib Applied";
+                break;
+            case 4:
+                this.dataContents = "Meta Data - ZLib Applied";
+                break;
+            case 6:
+                this.dataContents = "Shape";
+                break;
+            case 7:
+                this.dataContents = "Shape LOD0";
+                break;
+            case 8:
+                this.dataContents = "Shape LOD1";
+                break;
+            case 9:
+                this.dataContents = "Shape LOD2";
+                break;
+            case 10:
+                this.dataContents = "Shape LOD3";
+                break;
+            case 11:
+                this.dataContents = "Shape LOD4";
+                break;
+            case 12:
+                this.dataContents = "Shape LOD5";
+                break;
+            case 13:
+                this.dataContents = "Shape LOD6";
+                break;
+            case 14:
+                this.dataContents = "Shape LOD7";
+                break;
+            case 15:
+                this.dataContents = "Shape LOD8";
+                break;
+            case 16:
+                this.dataContents = "Shape LOD9";
+                break;
+            case 17:
+                this.dataContents = "XT B-Rep - ZLib Applied";
+                break;
+            case 18:
+                this.dataContents = "Wireframe Representation - ZLib Applied";
+                break;
+            case 20:
+                this.dataContents = "ULP - ZLib Applied";
+                break;
+            case 24:
+                this.dataContents = "LWPA - ZLib Applied";
+                break;
+        }
+        return this.dataContents;
     }
 
-    private saveToolStripMenuItem_Click(sender: Object, e): void {
-        // var saveFile1: SaveFileDialog = new SaveFileDialog();
-        // saveFile1.DefaultExt = "*.rtf";
-        // saveFile1.Filter = "RTF Files|*.rtf";
-        // if (saveFile1.ShowDialog() == System.Windows.Forms.DialogResult.OK && saveFile1.FileName.Length > 0) {
-        //     richTextBox.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText);
-        // }
-    }
-
-    private decompressFile(segment: number[], outData: number[]): void {
+    private DecompressFile(segment: number[], outData: number[]): void {
         // var output: MemoryStream = new MemoryStream()
         // try {
         //     var outZStream: Stream = new zlib.ZOutputStream(output)
@@ -343,52 +337,4 @@ export class JTReader {
         // }
     }
 
-    private loadToolStripMenuItem_Click(sender: Object, e): void {
-        // var openFileDialog: OpenFileDialog = new OpenFileDialog();
-        // openFileDialog.Title = "App Title";
-        // openFileDialog.InitialDirectory = "*.*";
-        // openFileDialog.Filter = "All files (*.*)|*.*|All files (*.jt)|*.jt";
-        // openFileDialog.FilterIndex = 2;
-        // openFileDialog.RestoreDirectory = true;
-        // if (openFileDialog.ShowDialog() == DialogResult.OK) {
-        //     var fileName: string = openFileDialog.FileName;
-        //     this.LoadJT(fileName);
-        // }
-    }
-
-    private printToolStripMenuItem_Click(sender: Object, e): void {
-        // var doc: PrintDocument = new PrintDocument();
-        // var pd: PrintDialog = new PrintDialog();
-        // var ppd: PrintPreviewDialog = new PrintPreviewDialog();
-        // ppd.Document = doc;
-        // pd.Document = doc;
-        // doc.PrintPage += new PrintPageEventHandler(doc_PrintPage);
-        // if (ppd.ShowDialog() == DialogResult.OK) {
-        //     if (pd.ShowDialog() == DialogResult.OK) {
-        //         doc.Print();
-        //     }
-        // }
-    }
-
-    private doc_PrintPage(sender: Object, e): void {
-        // var x: number = 10;
-        // var y: number = 0;
-        // var charpos: number = 0;
-        // while (charpos < this.richTextBox.Text.Length) {
-        //     if (this.richTextBox.Text[charpos] == '\n') {
-        //         charpos++;
-        //         y += 23;
-        //         x = 10;
-        //     }
-        //     else if (this.richTextBox.Text[charpos] == '\r') {
-        //         charpos++;
-        //     }
-        //     else {
-        //         this.richTextBox.Select(charpos, 1);
-        //         e.Graphics.DrawString(this.richTextBox.SelectedText, this.richTextBox.SelectionFont, new SolidBrush(this.richTextBox.SelectionColor), new PointF(x, y));
-        //         x = x + 8;
-        //         charpos++;
-        //     }
-        // }
-    }
 }
