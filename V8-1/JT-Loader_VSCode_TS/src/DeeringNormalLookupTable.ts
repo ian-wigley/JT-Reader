@@ -1,4 +1,4 @@
-﻿import { DeeringLookupEntry } from "./DeeringLookupEntry";
+﻿import { DeeringLookupEntry } from "./DeeringLookupEntry.js";
 
 export class DeeringNormalLookupTable {
     nBits: number;
