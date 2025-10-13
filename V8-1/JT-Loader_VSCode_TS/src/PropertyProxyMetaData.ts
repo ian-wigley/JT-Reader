@@ -1,5 +1,5 @@
-﻿import { Buffer } from "./BitBuffer";
-import { DataTypes } from "./DataTypes";
+﻿import { Buffer } from "./BitBuffer.js";
+import { DataTypes } from "./DataTypes.js";
 
 export class PropertyProxyMetaData {
     _MbString: number[];
