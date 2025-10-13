@@ -1,4 +1,4 @@
-﻿// export class XTB_RepNode {
+﻿export class XTB_RepNode {
 //     _richTextBox: RichTextBox;
 //     _uncompressed: number[];
 //     filePosCount: number;
@@ -68,4 +68,4 @@
 //         var version: string[] = new Array(80);
 //         var charBytes: number[] = new Array(80);
 //     }
-// }
+}
