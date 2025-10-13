@@ -1,6 +1,6 @@
-﻿import { ArithmeticProbabilityRange } from "./ArithmeticProbabilityRange";
-import { BitBuffer } from "./BitBuffer";
-import { Int32ProbCtxtEntry } from "./Int32ProbCtxtEntry";
+﻿import { ArithmeticProbabilityRange } from "./ArithmeticProbabilityRange.js";
+import { BitBuffer } from "./BitBuffer.js";
+import { Int32ProbCtxtEntry } from "./Int32ProbCtxtEntry.js";
 
 export class ArithmeticCodec {
 
