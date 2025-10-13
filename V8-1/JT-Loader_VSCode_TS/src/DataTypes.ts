@@ -1,5 +1,5 @@
-﻿import { BitConverter } from "./BitBuffer";
-import { Guid } from "./GUID";
+﻿import { BitConverter } from "./BitBuffer.js";
+import { Guid } from "./GUID.js";
 
 export class DataTypes {
     public static getBBoxF32(bboxBytes: number[]): BBoxF32 {
