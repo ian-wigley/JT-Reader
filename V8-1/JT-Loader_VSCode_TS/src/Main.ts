@@ -4,6 +4,8 @@ import { LogicalSceneGraphNode } from "./LogicalSceneGraphNode.js";
 import { MetaDataNode } from "./MetaDataNode.js";
 import { Shape_LOD_Segment } from "./Shape_LOD_Segment.js";
 
+declare var pako: any;
+
 export class JTReader {
     fileVersion: number;
     version: string[];
@@ -293,6 +295,8 @@ export class JTReader {
     }
 
     private DecompressFile(segment: number[], outData: number[]): void {
+        let result = pako.inflate(segment);
+        console.log(result);
         // var output: MemoryStream = new MemoryStream()
         // try {
         //     var outZStream: Stream = new zlib.ZOutputStream(output)
