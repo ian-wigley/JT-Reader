@@ -4,6 +4,8 @@ import { LogicalSceneGraphNode } from "./LogicalSceneGraphNode.js";
 import { MetaDataNode } from "./MetaDataNode.js";
 import { Shape_LOD_Segment } from "./Shape_LOD_Segment.js";
 
+// import { inflate } from "./index.js";
+
 declare var pako: any;
 
 export class JTReader {
@@ -28,7 +30,7 @@ export class JTReader {
     segmentFilePos: Int32[];
     SegmentLength: Int32[];
     segmentType: string[];
-    segment: number[];
+    segment: Uint8Array;
     element: number[];
     test: number[];
     decompressedBytes: List<Byte[]>;
@@ -172,7 +174,7 @@ export class JTReader {
         }
     }
 
-    GetGuid(): Guid {
+    private GetGuid(): Guid {
         var guidBytes: number[] = new Array(16);
         for (var i: number = 0; i < 16; i++) {
             guidBytes[i] = this.ReadByte();
@@ -187,7 +189,7 @@ export class JTReader {
             this.compressedDataLength[i] = this.GetInt32();
             this.compressionAlgorithmn[i] = this.ReadByte();
             var testLength: number = this.compressedDataLength[i] - 4;
-            this.segment = new Array(testLength);
+            this.segment = new Uint8Array(testLength);
             for (var j: number = 0; j < testLength; j++) {
                 this.segment[j] = this.ReadByte();
             }
@@ -294,8 +296,9 @@ export class JTReader {
         return this.dataContents;
     }
 
-    private DecompressFile(segment: number[], outData: number[]): void {
+    private DecompressFile(segment: Uint8Array /*number[]*/, outData: number[]): void {
         let result = pako.inflate(segment);
+        // let result = inflate(segment);
         console.log(result);
         // var output: MemoryStream = new MemoryStream()
         // try {
