@@ -1,4 +1,4 @@
-﻿﻿export class Predictors {
+﻿export class Predictors {
 
     public static unpackResiduals(residuals: number[], predType: PredictorType): number[] {
         let predicted: number;
