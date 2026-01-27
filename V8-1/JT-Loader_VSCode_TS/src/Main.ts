@@ -3,10 +3,11 @@ import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers.js";
 import { LogicalSceneGraphNode } from "./LogicalSceneGraphNode.js";
 import { MetaDataNode } from "./MetaDataNode.js";
 import { Shape_LOD_Segment } from "./Shape_LOD_Segment.js";
+import { unzip, unzlibSync } from 'fflate';
 
 // import { inflate } from "./index.js";
 
-declare var pako: any;
+// declare var pako: any;
 
 export class JTReader {
     fileVersion: number;
@@ -195,7 +196,7 @@ export class JTReader {
             }
             let test = new Array(10000);
             this.DecompressFile(this.segment, test);
-            this.decompressedBytes.push(test);
+            // this.decompressedBytes.push(test);
         }
         else {
             this.element = new Array(this.SegmentLength[i]);
@@ -217,7 +218,8 @@ export class JTReader {
 
         if (this.segmentType[i] == "Shape LOD0") {
             let shapeLODSegment = new Shape_LOD_Segment(this.fileVersion, this.element);
-            this.m_lodSegment.push(shapeLODSegment);
+            // this.m_lodSegment.push(shapeLODSegment);
+            console.log(shapeLODSegment);
         }
 
         if (this.segmentType[i] == "Shape LOD1") {
@@ -228,12 +230,7 @@ export class JTReader {
     }
 
     private GetSegmentType(type: number, count: number): string {
-        if (type < 6 || type > 16) {
-            this.zlibApplied[count] = true;
-        }
-        else {
-            this.zlibApplied[count] = false;
-        }
+        this.zlibApplied[count] = type < 6 || type > 16;
         switch (type) {
             case 1:
                 this.dataContents = "Logical Scene Graph - ZLib Applied";
@@ -297,29 +294,38 @@ export class JTReader {
     }
 
     private DecompressFile(segment: Uint8Array /*number[]*/, outData: number[]): void {
-        let result = pako.inflate(segment);
-        // let result = inflate(segment);
-        console.log(result);
-        // var output: MemoryStream = new MemoryStream()
-        // try {
-        //     var outZStream: Stream = new zlib.ZOutputStream(output)
-        //     try {
-        //         var input: Stream = new MemoryStream(segment)
-        //         try {
-        //             Form1.CopyStream(input, outZStream);
-        //             outData = output.ToArray();
-        //         }
-        //         finally {
-        //             if (input != null) input.Dispose();
-        //         }
-        //     }
-        //     finally {
-        //         if (outZStream != null) outZStream.Dispose();
-        //     }
-        // }
-        // finally {
-        //     if (output != null) output.Dispose();
-        // }
+        // let result = pako.inflate(segment);
+        // @ts-ignore
+
+        unzip(segment, (err, unzipped) => {
+            // If the archive has data.xml, log it here
+            console.log("unzipped: " + unzipped);
+            console.log("error" + err);
+        });
+
+        // let result = unzip(segment);
+        // // // let result = inflate(segment);
+        // console.log(result);
+        // // var output: MemoryStream = new MemoryStream()
+        // // try {
+        // //     var outZStream: Stream = new zlib.ZOutputStream(output)
+        // //     try {
+        // //         var input: Stream = new MemoryStream(segment)
+        // //         try {
+        // //             Form1.CopyStream(input, outZStream);
+        // //             outData = output.ToArray();
+        // //         }
+        // //         finally {
+        // //             if (input != null) input.Dispose();
+        // //         }
+        // //     }
+        // //     finally {
+        // //         if (outZStream != null) outZStream.Dispose();
+        // //     }
+        // // }
+        // // finally {
+        // //     if (output != null) output.Dispose();
+        // // }
     }
 
     public static CopyStream(input, output): void {
@@ -345,3 +351,7 @@ export class JTReader {
     }
 
 }
+
+
+let jtReader = new JTReader();
+jtReader.LoadJT("assets/H-ADAPTOR,4 BOLT STRAIGHT.jt");
