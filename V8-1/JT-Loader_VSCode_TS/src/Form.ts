@@ -1,9 +1,9 @@
 ﻿import { JTObjectTypeIdentifiers } from "./JTObjectTypeIdentifiers.js";
 
 export class Form1 {
-    fileVersion: number;
-    version: string[];
-    byteOrder: string;
+    fileVersion: number = 0;
+    version: string[] = [];
+    byteOrder: string = "";
     // reservedField: Int32;
     // tocOffset: Int32;
     // lsgSegmentID: Guid;
@@ -14,16 +14,16 @@ export class Form1 {
     // segmentAttributes: UInt32[];
     // SegmentID: Guid;
     // SegmentType: Int32;
-    zlibApplied: boolean[];
+    zlibApplied: boolean[] = [];
     // compressionFlag: Int32[];
     // compressedDataLength: Int32[];
-    compressionAlgorithmn: number[];
+    compressionAlgorithmn: number[] = [];
     // segmentFilePos: Int32[];
     // SegmentLength: Int32[];
-    segmentType: string[];
-    segment: number[];
-    element: number[];
-    // test: number[];
+    segmentType: string[] = [];
+    segment: number[] = [];
+    element: number[] = [];
+    // test: number[] = [];
     // decompressedBytes: List<Byte[]> = new List<number[]>();
     // notZLibBytes: List<Byte[]> = new List<number[]>();
     // m_lodSegment: List<Shape_LOD_Segment> = new List<Shape_LOD_Segment>();
