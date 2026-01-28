@@ -2,15 +2,15 @@ import { DataTypes } from "./DataTypes";
 
 export class BaseJTNode {
 
-    protected _uncompressed: number[];
+    protected _uncompressed: number[] = [];
     protected _fileVersion: number = 0;
     protected _filePosCount: number = 0;
     protected fileBytes: number[] = new Array(4);
-    protected _nodeFlags: number;
-    protected _attributeCount: number;
-    protected _attributeObjectID: number[];
-    protected _objectID: number;
-    protected _versionNumber: number;
+    protected _nodeFlags: number = 0
+    protected _attributeCount: number = 0;
+    protected _attributeObjectID: number[] = [];
+    protected _objectID: number = 0
+    protected _versionNumber: number = 0;
 
     protected TraverseBaseNodeData(): number {
         if (this._fileVersion >= 9.5) {
