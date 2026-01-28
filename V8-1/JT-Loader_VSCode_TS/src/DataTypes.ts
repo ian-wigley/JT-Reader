@@ -3,7 +3,7 @@ import { Guid } from "./GUID.js";
 
 export class DataTypes {
     public static getBBoxF32(bboxBytes: number[]): BBoxF32 {
-        var transformedBBox: BBoxF32;
+        var transformedBBox: BBoxF32 = new BBoxF32();
         transformedBBox.minCorner.x = (bboxBytes[0]);
         transformedBBox.minCorner.y = (bboxBytes[1]);
         transformedBBox.minCorner.z = (bboxBytes[2]);
@@ -60,13 +60,13 @@ export class DataTypes {
     }
 
     static VecU32 = class {
-        public count: UInt32;
-        public data: UInt32[];
+        public count: UInt32 = 0;
+        public data: UInt32[] = [];
     }
 
     static VecI32 = class {
-        public count: Int32;
-        public data: Int32[];
+        public count: Int32 = 0;
+        public data: Int32[] = [];
     }
 }
 
@@ -76,7 +76,7 @@ export class BBoxF32 {
 }
 
 export class Vector3 {
-    public x: number;
-    public y: number;
-    public z: number;
+    public x: number = 0;
+    public y: number = 0;
+    public z: number = 0;
 }
