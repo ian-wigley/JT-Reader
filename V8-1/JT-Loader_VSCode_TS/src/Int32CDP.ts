@@ -13,6 +13,7 @@ export class Int32CDP {
     static _codeTextWords: Int32[];
     static m_bitLengthCodec: BitLengthCodec;
     static m_arithmeticCodec: ArithmeticCodec;
+    static _int32ProbabilityContexts: Int32ProbabilityContexts;
 
     // public static Int32CDPone(value: CodecDriver.PredictorType): Int32[] {
     public static Int32CDPone(value: any): Int32[] {
@@ -20,7 +21,7 @@ export class Int32CDP {
     }
 
     public static Int32CDPRead(): Int32[] {
-        var _int32ProbabilityContexts: Int32ProbabilityContexts = null;
+//        var _int32ProbabilityContexts: Int32ProbabilityContexts = undefined;
         var fileBytes: number[];
         var _codeTextLength: Int32 = 0;
         var _valueElementCount: Int32 = 0;
@@ -28,19 +29,18 @@ export class Int32CDP {
         // var str8: string = codecType;//.ToString();
         Int32CDP._filePosCount += 1;
         if (codecType == 2) {
-
         }
         if (codecType == 3) {
             fileBytes = new Array(4);
-            _int32ProbabilityContexts = new Int32ProbabilityContexts(Int32CDP._data, Int32CDP._filePosCount);
-            Int32CDP._filePosCount = _int32ProbabilityContexts.UpDateFilePos();
+            Int32CDP._int32ProbabilityContexts = new Int32ProbabilityContexts(Int32CDP._data, Int32CDP._filePosCount);
+            Int32CDP._filePosCount = Int32CDP._int32ProbabilityContexts.UpDateFilePos();
             fileBytes = new Array(4);
             Buffer.BlockCopy(Int32CDP._data, Int32CDP._filePosCount, fileBytes, 0, 4);
             var _outOfBandValueCount: Int32 = DataTypes.getInt32(fileBytes);
             Int32CDP._filePosCount += 4;
             if (_outOfBandValueCount > 0) {
                 var _oOOBValues: number[] = Int32CDP.Int32CDPRead();
-                _int32ProbabilityContexts.SetOOBValues(_oOOBValues);
+                Int32CDP._int32ProbabilityContexts.SetOOBValues(_oOOBValues);
             }
         }
         if (codecType != 0) {
@@ -52,7 +52,7 @@ export class Int32CDP {
             Buffer.BlockCopy(Int32CDP._data, Int32CDP._filePosCount, fileBytes, 0, 4);
             _valueElementCount = DataTypes.getInt32(fileBytes);
             Int32CDP._filePosCount += 4;
-            if (_int32ProbabilityContexts == null || _int32ProbabilityContexts.GetTableCount() == 1) {
+            if (Int32CDP._int32ProbabilityContexts == null || Int32CDP._int32ProbabilityContexts.GetTableCount() == 1) {
                 Int32CDP._codeTextCount = _valueElementCount;
             }
             else {
@@ -71,7 +71,7 @@ export class Int32CDP {
         }
         if (codecType == 3) {
             Int32CDP.m_arithmeticCodec = new ArithmeticCodec();
-            Int32CDP.result = Int32CDP.m_arithmeticCodec.DecodeArithmetic(_int32ProbabilityContexts, Int32CDP._codeTextWords, _codeTextLength, Int32CDP._codeTextCount, _valueElementCount);
+            Int32CDP.result = Int32CDP.m_arithmeticCodec.DecodeArithmetic(Int32CDP._int32ProbabilityContexts, Int32CDP._codeTextWords, _codeTextLength, Int32CDP._codeTextCount, _valueElementCount);
         }
         return Int32CDP.result;
     }
