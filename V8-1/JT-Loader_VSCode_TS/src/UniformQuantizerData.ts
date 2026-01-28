@@ -1,7 +1,7 @@
 ﻿﻿export class UniformQuantizerData {
     _min: number;
     _max: number;
-    _numberOfBits: number;
+    _numberOfBits: number = 0;
 
     constructor(min: number, max: number, numberOfBits: number) {
         this._min = min;
