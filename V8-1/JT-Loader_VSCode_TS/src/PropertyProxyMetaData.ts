@@ -2,14 +2,14 @@
 import { DataTypes } from "./DataTypes.js";
 
 export class PropertyProxyMetaData {
-    _MbString: number[];
-    _count: Int32;
+    _MbString: number[] = [];
+    _count: Int32 = 0
     _elementLength: Int32;
     _filePosCount: Int32;
     _uncompressed: number[];
-    _fileBytes: number[];
+    _fileBytes: number[] = [];
     _fileVersion: number = 0;
-    m_textBox: List<string>;
+    m_textBox: List<string> = [];
     encoding: any;
 
     constructor(fileVersion: number, fileCount: number, uncompressed: number[], elementLength: number) {
