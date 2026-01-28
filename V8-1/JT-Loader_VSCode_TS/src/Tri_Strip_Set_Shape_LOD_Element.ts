@@ -2,21 +2,21 @@
 
 export class Tri_Strip_Set_Shape_LOD_Element {
     _filePosCount: number;
-    _versionNumber: number;
+    _versionNumber: number = 0;
     _fileVersion: number;
     _data: number[];
-    fileBytes: number[];
+    fileBytes: number[] | undefined;
     _guidBytes: number[];
-    m_faceIndices: List<number>;
-    _primitiveListIndices: List<Int32>;
-    _residualValues: Int32[];
-    _texture: number[];
-    _rgb: number[];
-    _normal: number[];
-    _vertex: number[];
+    m_faceIndices: List<number> = [];
+    _primitiveListIndices: List<Int32> = [];
+    _residualValues: Int32[] = [];
+    _texture: number[] = [];
+    _rgb: number[] = [];
+    _normal: number[] = [];
+    _vertex: number[] = [];
     PolylineShape: boolean = false;
     _bitsPerVertex: number = 0;
-    _geometricalData: number[];
+    _geometricalData: number[] = [];
     _geometryFilePosCount: number = 0;
 
     constructor(fileVersion: number, data: number[], filePosCount: number) {
