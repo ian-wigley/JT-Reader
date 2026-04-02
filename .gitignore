@@ -11,3 +11,4 @@ V8-1/JT-Loader_Vis-Studio_C#/JTLoader/bin/
 V8-1/JT-Loader_VSCode_TS/out/
 *.jt
 /V8-1/_old-JT-Loader_VSCode_TS
+V8-1/JT-Loader_VSCode_TS/package-lock.json
